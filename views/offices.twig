@@ -1,0 +1,10 @@
+{% extends 'layout.twig' %}
+{% block body %}
+<h1>Offices</h1>
+<ul>
+    {% for office in offices %}
+        {{ office.street }}, {{ office.city }}<br>
+        <br>
+    {% endfor %}
+</ul>
+{% endblock %}
