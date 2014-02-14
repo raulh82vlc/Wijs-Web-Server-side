@@ -1,10 +1,9 @@
 {% extends 'layout.twig' %}
 {% block body %}
 <h1>Offices</h1>
-<ul>
     {% for office in offices %}
-        {{ office.street }}, {{ office.city }}<br>
+        <li><a href={{  app.url_generator.generate('office', {id: office.id}) }}>
+        {{ office.street|e}}, {{ office.city|e}}</a><br>
         <br>
     {% endfor %}
-</ul>
 {% endblock %}

@@ -22,7 +22,7 @@ class Office
             FROM offices
             WHERE id = ?";
 
-            if ($offices = $db->fetchAssoc($sqlQuery, array($id)))
+            if ($office = $db->fetchAssoc($sqlQuery, array($id)))
             {
                  $this->_street = $office['street'];
                  $this->_city = $office['city'];
