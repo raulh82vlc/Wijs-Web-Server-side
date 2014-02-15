@@ -15,21 +15,29 @@ class Office
     private $_is_open_in_weekends;
     private $_has_support_desk;
 
-    function __construct($id=1, $db = false)
+    function __construct($city = false, $db = false)
     {
-        $this->_id = $id;
-        $sqlQuery = "SELECT id, street, city, latitude, longitude, is_open_in_weekends, has_support_desk
-            FROM offices
-            WHERE id = ?";
 
-            if ($office = $db->fetchAssoc($sqlQuery, array($id)))
+        $this->_city = $city;
+        $sqlQuery = "SELECT street, city, latitude, longitude, is_open_in_weekends, has_support_desk
+            FROM offices
+            WHERE city = ?";
+
+            if ($office = $db->fetchAssoc($sqlQuery, array($city)))
             {
                  $this->_street = $office['street'];
-                 $this->_city = $office['city'];
                  $this->_latitude = $office['latitude'];
                  $this->_longitude = $office['longitude'];
                  $this->_is_open_in_weekends = $office['is_open_in_weekends'];
                  $this->_has_support_desk = $office['has_support_desk'];
+
+                $result = array(
+                'timestamp' => time(),
+                'random' => rand(),
+                'city' => $city,
+                'street' => $this->_street
+                );
+                echo json_encode($result);
             }
             else
             {

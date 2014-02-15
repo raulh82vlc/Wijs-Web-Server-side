@@ -1,7 +1,10 @@
-{# index.twig #}
-{% extends 'layout.twig' %}
+{# index.html.twig #}
+{% extends 'layout.html.twig' %}
 {% block body %}
 <h1>Offices search</h1>
+        <div>
+        	<input type="text" id="searchBox" value="" />
+    	</div>
 <ul>
 	<li><a href="{{app.url_generator.generate('offices')}}">Offices</a></li>
 </ul>

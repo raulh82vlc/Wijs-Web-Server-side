@@ -2,8 +2,19 @@
 
 require_once __DIR__.'/../../vendor/autoload.php';
 
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\ParameterBag;
+
+
 $app = new Silex\Application();
 
+$app->before(function (Request $request) {
+    if (0 === strpos($request->headers->get('Content-Type'), 'application/json')) {
+        $data = json_decode($request->getContent(), true);
+        $request->request->replace(is_array($data) ? $data : array());
+    }
+});
 $app->register(new Silex\Provider\TwigServiceProvider(), array(
     'twig.path' => __DIR__.'/../../src/views',
 ));
@@ -30,7 +41,7 @@ $app->register(new Silex\Provider\FormServiceProvider());
 $app['debug'] = true;
 
 $app->get('/', function() use($app) {
-    return $app['twig']->render('index.twig');
+    return $app['twig']->render('index.html.twig');
 })
 ->bind('homepage');
 
@@ -38,20 +49,32 @@ $app->get('/offices', function () use($app) {
     //@TODO Autoload
     require_once(__DIR__.'/../models/Offices.php');
     $offices = new Models\Offices($app['db']);
-    return $app['twig']->render('offices.twig', array(
+    return $app['twig']->render('offices.html.twig', array(
     	'offices' => $offices->getOffices()
     ));
 })
 ->bind('offices');
 
-$app->get('/office/{id}', function($id) use($app) {
+$app->get('/office/{city}', function($city) use($app) {
     //@TODO Autoload
     require_once(__DIR__.'/../models/Office.php');
-    $office = new Models\Office($id, $app['db']);
-    return $app['twig']->render('office.twig', array(
+    $office = new Models\Office($city, $app['db']);
+    return $app['twig']->render('office.html.twig', array(
         'office' => $office->getOffice()
     ));
 })
 ->bind('office');
+
+$app->get('/office', function (Request $request) use ($app) {
+    require_once(__DIR__.'/../models/Office.php');
+    $office = new Models\Office($city, $app['db']);
+    $get = array(
+        'city' => $request->request->get('city')
+    );
+
+    return $app['twig']->render('office.html.twig', array(
+        'office' => $get['city']
+    ));
+});
 
 return $app;
