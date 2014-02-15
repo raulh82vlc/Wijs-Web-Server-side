@@ -66,15 +66,18 @@ $app->get('/office/{city}', function($city) use($app) {
 ->bind('office');
 
 $app->get('/office', function (Request $request) use ($app) {
+
     require_once(__DIR__.'/../models/Office.php');
-    $office = new Models\Office($city, $app['db']);
-    $get = array(
-        'city' => $request->request->get('city')
+    
+    $request = array(
+        'city' => $request->request->get('city'),
     );
 
+    $office = new Models\Office($request['city'], $app['db']);
     return $app['twig']->render('office.html.twig', array(
-        'office' => $get['city']
+        'office' => $office->getOffice()
     ));
+
 });
 
 return $app;

@@ -34,7 +34,7 @@ class Office
                 $result = array(
                 'timestamp' => time(),
                 'random' => rand(),
-                'city' => $city,
+                'city' => $_GET['$city'],
                 'street' => $this->_street
                 );
                 echo json_encode($result);
