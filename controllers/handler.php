@@ -68,13 +68,16 @@ $app->get('/office/{city}', function($city) use($app) {
 $app->get('/office', function (Request $request) use ($app) {
 
     require_once(__DIR__.'/../models/Office.php');
+    require_once(__DIR__.'/../models/OfficeFiltered.php');
     
-    $request = array(
-        'city' => $request->request->get('city'),
+    $response = array(
+        'city'                => $request->query->get('city'),
+        'is_open_in_weekends' => $request->query->get('is_open_in_weekends'),
+        'has_support_desk'    => $request->query->get('has_support_desk')        
     );
 
-    $office = new Models\Office($request['city'], $app['db']);
-    return $app['twig']->render('office.html.twig', array(
+    $office = new Models\OfficeFiltered($response['city'], $response['is_open_in_weekends'], $response['has_support_desk'], $app['db']);
+    return $app['twig']->render('index.html.twig', array(
         'office' => $office->getOffice()
     ));
 
