@@ -1,0 +1,30 @@
+{% extends 'layout.html.twig' %}
+{% block body %}
+<h1>Offices search by zone of the city</h1>
+<form>
+    <div>
+        Introduce a location to search for offices closeby:<br>
+    </div>
+    <div>
+    	<input type="text" id="searchName" name="city" value="" /><br><br>
+	</div>
+	<div>
+		<input type="checkbox" id="searchIsOpen" name="is_open_in_weekends" value="N" />Is Open in Weekends<br><br>
+	</div>
+	<div>
+		<input type="checkbox" id="searchHasSupport" name="has_support_desk" value="N" />Has support desk
+	</div>
+</form>
+<br><br>
+<div>
+    <h2>Results:</h2>
+    {% for office in offices %}
+    <div>        
+        {{office.city}}, {{office.street}}<br>
+    </div>
+    {% else %}
+        - <br><br>
+    {% endfor %}
+    <br><br>
+</div>
+{% endblock %}

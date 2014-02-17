@@ -1,7 +1,10 @@
 <?php
 
 /**
-* 
+* Class Offices
+* this class provides a list of all offices for simply list funcionality
+*
+* @Author Raul Hernandez Lopez - 2014
 */
 namespace Models;
  
@@ -24,19 +27,6 @@ class Offices
                 {
                     $this->_offices = null;
                 }
-            }
-            else
-            {
-                $this->_offices = array(
-                1 => array(
-                    'street' => 'Fake',
-                    'city'  => 'Fakeland'
-                    ),
-                2 => array(
-                    'street' => 'Fake2',
-                    'city'  => 'Fakeland2'
-                    ),
-                );
             }
     }
 

@@ -1,7 +1,11 @@
 <?php
 
 /**
-* 
+* Class Office
+* this class provides all corresponding methods for handling each individual atributte
+* both getters and set from the SQL query by city
+*
+* @Author Raul Hernandez Lopez - 2014
 */
 namespace Models;
  
@@ -42,6 +46,11 @@ class Office
             else
             {
                 $this->_id = null;
+                $this->_street = null;
+                $this->_latitude = null;
+                $this->_longitude = null;
+                $this->_is_open_in_weekends = null;
+                $this->_has_support_desk = null;
             }
     }
 

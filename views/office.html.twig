@@ -3,6 +3,20 @@
 <h1>Office {{ office.city }}</h1>
 <ul>
         <li>Street : {{ office.street }}</li>
-        <li>City : {{ office.city }}</li>
+        <li>City :   {{ office.city }}</li>
+        <li>Is Open in Weekends :
+		{% if office.is_open_in_weekends == 'Y' %}
+			YES
+		{% else %}
+			NO
+		{% endif %}
+		</li>
+		<li>Has Support desk :
+		{% if office.has_support_desk == 'Y' %}
+			YES
+		{% else %}
+			NO
+		{% endif %}
+		</li>
 </ul>
 {% endblock %}
