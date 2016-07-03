@@ -1,3 +1,3 @@
 PHP with Silex 2.0
 ----------------------
-Few simple files for a sinmple framework
+A try of the Silex framework with PHP
